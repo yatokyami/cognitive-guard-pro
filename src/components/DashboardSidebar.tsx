@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   Brain,
   LayoutDashboard,
@@ -26,18 +27,19 @@ const profiles = [
 ] as const;
 
 const navItems = [
-  { icon: LayoutDashboard, label: "Dashboard" },
-  { icon: Activity, label: "Cognitive Load" },
-  { icon: Users, label: "Team Clusters" },
-  { icon: Shield, label: "Privacy Guard" },
-  { icon: Settings, label: "Settings" },
+  { icon: LayoutDashboard, label: "Dashboard", path: "/" },
+  { icon: Activity, label: "Cognitive Load", path: "/cognitive-load" },
+  { icon: Users, label: "Team Clusters", path: "/team-clusters" },
+  { icon: Shield, label: "Privacy Guard", path: "/privacy-guard" },
+  { icon: Settings, label: "Settings", path: "/settings" },
 ];
 
 export default function DashboardSidebar() {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [viewMode, setViewMode] = useState<string>("academic");
   const [profile, setProfile] = useState<string>("manager");
   const [viewOpen, setViewOpen] = useState(false);
-  const [activeNav, setActiveNav] = useState("Dashboard");
 
   const currentView = viewModes.find((v) => v.id === viewMode)!;
   const currentProfile = profiles.find((p) => p.id === profile)!;
@@ -110,29 +112,35 @@ export default function DashboardSidebar() {
 
       {/* Navigation */}
       <nav className="flex-1 px-3 py-2 space-y-0.5">
-        {navItems.map((item) => (
-          <button
-            key={item.label}
-            onClick={() => setActiveNav(item.label)}
-            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all ${
-              activeNav === item.label
-                ? "bg-primary/10 text-primary font-medium"
-                : "text-muted-foreground hover:text-foreground hover:bg-accent"
-            }`}
-          >
-            <item.icon className="w-4 h-4" />
-            {item.label}
-          </button>
-        ))}
+        {navItems.map((item) => {
+          const isActive = location.pathname === item.path;
+          return (
+            <button
+              key={item.label}
+              onClick={() => navigate(item.path)}
+              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all ${
+                isActive
+                  ? "bg-primary/10 text-primary font-medium"
+                  : "text-muted-foreground hover:text-foreground hover:bg-accent"
+              }`}
+            >
+              <item.icon className="w-4 h-4" />
+              {item.label}
+            </button>
+          );
+        })}
       </nav>
 
       {/* Bottom Status */}
       <div className="p-3 border-t border-sidebar-border">
-        <div className="glass-card px-3 py-2.5 flex items-center gap-3">
+        <button
+          onClick={() => navigate("/profile")}
+          className="w-full glass-card px-3 py-2.5 flex items-center gap-3 hover:border-primary/20 transition-colors"
+        >
           <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
             <currentProfile.icon className="w-4 h-4 text-primary" />
           </div>
-          <div className="flex-1 min-w-0">
+          <div className="flex-1 min-w-0 text-left">
             <p className="text-xs font-medium text-foreground truncate">
               {profile === "manager" ? "Dr. Sarah Chen" : "Alex Rivera"}
             </p>
@@ -141,7 +149,7 @@ export default function DashboardSidebar() {
             </p>
           </div>
           <div className="w-2 h-2 rounded-full bg-success animate-pulse-glow" />
-        </div>
+        </button>
       </div>
     </aside>
   );
