@@ -4,7 +4,7 @@ export default function CognitiveEnergyMeter() {
   const energyLevel = 67;
 
   return (
-    <div className="glass-card px-4 py-3 flex items-center gap-4 flex-1">
+    <div className="glass-card px-3 py-2 flex items-center gap-3 flex-1">
       <div className="flex items-center gap-2">
         <Battery className="w-5 h-5 text-primary" />
         <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Cognitive Energy</span>

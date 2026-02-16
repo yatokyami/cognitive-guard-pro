@@ -3,6 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ViewProvider } from "@/contexts/ViewContext";
 import Index from "./pages/Index";
 import CognitiveLoad from "./pages/CognitiveLoad";
 import TeamClusters from "./pages/TeamClusters";
@@ -19,15 +20,17 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/cognitive-load" element={<CognitiveLoad />} />
-          <Route path="/team-clusters" element={<TeamClusters />} />
-          <Route path="/privacy-guard" element={<PrivacyGuard />} />
-          <Route path="/settings" element={<SettingsPage />} />
-          <Route path="/profile" element={<UserProfile />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <ViewProvider>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/cognitive-load" element={<CognitiveLoad />} />
+            <Route path="/team-clusters" element={<TeamClusters />} />
+            <Route path="/privacy-guard" element={<PrivacyGuard />} />
+            <Route path="/settings" element={<SettingsPage />} />
+            <Route path="/profile" element={<UserProfile />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </ViewProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

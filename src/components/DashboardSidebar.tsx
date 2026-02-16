@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useView } from "@/contexts/ViewContext";
 import {
   Brain,
   LayoutDashboard,
@@ -37,19 +38,18 @@ const navItems = [
 export default function DashboardSidebar() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [viewMode, setViewMode] = useState<string>("academic");
-  const [profile, setProfile] = useState<string>("manager");
+  const { viewMode, setViewMode, profile, setProfile } = useView();
   const [viewOpen, setViewOpen] = useState(false);
 
   const currentView = viewModes.find((v) => v.id === viewMode)!;
   const currentProfile = profiles.find((p) => p.id === profile)!;
 
   return (
-    <aside className="w-64 min-h-screen bg-sidebar border-r border-sidebar-border flex flex-col">
+    <aside className="w-56 min-h-screen bg-sidebar border-r border-sidebar-border flex flex-col">
       {/* Logo */}
-      <div className="p-5 flex items-center gap-3 border-b border-sidebar-border">
-        <div className="w-9 h-9 rounded-lg bg-primary/20 flex items-center justify-center glow-teal">
-          <Brain className="w-5 h-5 text-primary" />
+      <div className="p-4 flex items-center gap-2.5 border-b border-sidebar-border">
+        <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center glow-teal">
+          <Brain className="w-4 h-4 text-primary" />
         </div>
         <div>
           <h1 className="text-sm font-semibold text-foreground tracking-tight">NeuroNet</h1>
@@ -58,12 +58,12 @@ export default function DashboardSidebar() {
       </div>
 
       {/* Route Switcher */}
-      <div className="px-3 pt-4 pb-2">
-        <p className="text-[10px] uppercase tracking-widest text-muted-foreground mb-2 px-2">Context View</p>
+      <div className="px-2.5 pt-3 pb-1.5">
+        <p className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1.5 px-2">Context View</p>
         <div className="relative">
           <button
             onClick={() => setViewOpen(!viewOpen)}
-            className="w-full glass-card px-3 py-2.5 flex items-center justify-between text-sm text-foreground hover:border-primary/20 transition-colors"
+            className="w-full glass-card px-2.5 py-2 flex items-center justify-between text-sm text-foreground hover:border-primary/20 transition-colors"
           >
             <span className="flex items-center gap-2">
               <currentView.icon className="w-4 h-4 text-primary" />
@@ -77,7 +77,7 @@ export default function DashboardSidebar() {
                 <button
                   key={v.id}
                   onClick={() => { setViewMode(v.id); setViewOpen(false); }}
-                  className={`w-full px-3 py-2 flex items-center gap-2 text-sm transition-colors ${
+                  className={`w-full px-3 py-1.5 flex items-center gap-2 text-sm transition-colors ${
                     v.id === viewMode ? "text-primary bg-primary/10" : "text-muted-foreground hover:text-foreground hover:bg-accent"
                   }`}
                 >
@@ -91,13 +91,13 @@ export default function DashboardSidebar() {
       </div>
 
       {/* Profile Toggle */}
-      <div className="px-3 pb-3">
-        <div className="flex gap-1 p-1 glass-card">
+      <div className="px-2.5 pb-2">
+        <div className="flex gap-1 p-0.5 glass-card">
           {profiles.map((p) => (
             <button
               key={p.id}
               onClick={() => setProfile(p.id)}
-              className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
+              className={`flex-1 flex items-center justify-center gap-1 py-1.5 rounded-lg text-xs font-medium transition-all ${
                 p.id === profile
                   ? "bg-primary/15 text-primary"
                   : "text-muted-foreground hover:text-foreground"
@@ -111,14 +111,14 @@ export default function DashboardSidebar() {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 px-3 py-2 space-y-0.5">
+      <nav className="flex-1 px-2.5 py-1.5 space-y-0.5">
         {navItems.map((item) => {
           const isActive = location.pathname === item.path;
           return (
             <button
               key={item.label}
               onClick={() => navigate(item.path)}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all ${
+              className={`w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm transition-all ${
                 isActive
                   ? "bg-primary/10 text-primary font-medium"
                   : "text-muted-foreground hover:text-foreground hover:bg-accent"
@@ -132,13 +132,13 @@ export default function DashboardSidebar() {
       </nav>
 
       {/* Bottom Status */}
-      <div className="p-3 border-t border-sidebar-border">
+      <div className="p-2.5 border-t border-sidebar-border">
         <button
           onClick={() => navigate("/profile")}
-          className="w-full glass-card px-3 py-2.5 flex items-center gap-3 hover:border-primary/20 transition-colors"
+          className="w-full glass-card px-2.5 py-2 flex items-center gap-2.5 hover:border-primary/20 transition-colors"
         >
-          <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
-            <currentProfile.icon className="w-4 h-4 text-primary" />
+          <div className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center">
+            <currentProfile.icon className="w-3.5 h-3.5 text-primary" />
           </div>
           <div className="flex-1 min-w-0 text-left">
             <p className="text-xs font-medium text-foreground truncate">

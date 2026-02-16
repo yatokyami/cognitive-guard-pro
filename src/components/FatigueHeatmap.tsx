@@ -23,7 +23,7 @@ function getColor(risk: number) {
 
 export default function FatigueHeatmap() {
   return (
-    <div className="glass-card p-5 h-full">
+    <div className="glass-card p-4 h-full">
       <div className="flex items-center justify-between mb-4">
         <div>
           <h3 className="text-sm font-semibold text-foreground">Fatigue Heatmap</h3>
