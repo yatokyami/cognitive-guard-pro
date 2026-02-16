@@ -17,7 +17,7 @@ function getStatusStyles(status: string) {
 
 export default function DecayTaskList() {
   return (
-    <div className="glass-card p-5 h-full flex flex-col">
+    <div className="glass-card p-4 h-full flex flex-col">
       <div className="flex items-center justify-between mb-4">
         <div>
           <h3 className="text-sm font-semibold text-foreground">Adaptive Schedule</h3>

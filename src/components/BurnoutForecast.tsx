@@ -40,7 +40,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 
 export default function BurnoutForecast() {
   return (
-    <div className="glass-card p-5">
+    <div className="glass-card p-4">
       <div className="flex items-center justify-between mb-4">
         <div>
           <h3 className="text-sm font-semibold text-foreground">Burnout Risk Forecast</h3>

@@ -2,7 +2,7 @@ import { Lightbulb, ArrowRight, CalendarClock } from "lucide-react";
 
 export default function ContextAdvisor() {
   return (
-    <div className="glass-card p-5 h-full flex flex-col">
+    <div className="glass-card p-4 h-full flex flex-col">
       <div className="flex items-center gap-2 mb-4">
         <div className="w-8 h-8 rounded-lg bg-warning/15 flex items-center justify-center">
           <Lightbulb className="w-4 h-4 text-warning" />

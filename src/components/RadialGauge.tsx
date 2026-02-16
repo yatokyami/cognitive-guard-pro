@@ -7,7 +7,7 @@ export default function RadialGauge() {
   const collabArc = (collaborative / 100) * circumference;
 
   return (
-    <div className="glass-card px-4 py-3 flex items-center gap-4">
+    <div className="glass-card px-3 py-2 flex items-center gap-3">
       <div className="relative w-14 h-14">
         <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
           <circle cx="50" cy="50" r={radius} fill="none" stroke="hsl(225 25% 18%)" strokeWidth="8" />
